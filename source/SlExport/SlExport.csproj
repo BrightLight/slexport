@@ -45,6 +45,7 @@
     <Compile Include="ISisulizerProject.cs" />
     <Compile Include="ISisulizerStatsExporer.cs" />
     <Compile Include="LangStatus.cs" />
+    <Compile Include="PlugInManager.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="ProjectLanguage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

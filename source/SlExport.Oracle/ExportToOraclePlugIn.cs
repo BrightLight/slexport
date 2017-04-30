@@ -3,8 +3,8 @@
   using System.ComponentModel.Composition;
   using global::Oracle.ManagedDataAccess.Client;
 
-  [Export(typeof(ISisulizerStatsExporer))]
-  public class ExportToOracle : ISisulizerStatsExporer
+  [Export(typeof(ISisulizerExportPlugin))]
+  public class ExportToOraclePlugIn : ISisulizerExportPlugin
   {
     public string PlugInId => "Oracle";
 

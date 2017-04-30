@@ -39,7 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExportToXml.cs" />
+    <Compile Include="ExportToXmlPlugIn.cs" />
     <Compile Include="IProjectLanguage.cs" />
     <Compile Include="ISisulizerFile.cs" />
     <Compile Include="ISisulizerProject.cs" />

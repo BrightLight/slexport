@@ -6,8 +6,8 @@
   using System.Linq;
   using System.Text;
 
-  [Export(typeof(ISisulizerStatsExporer))]
-  public class ExportToXml : ISisulizerStatsExporer
+  [Export(typeof(ISisulizerExportPlugin))]
+  public class ExportToXmlPlugIn : ISisulizerExportPlugin
   {
     public string PlugInId => "Xml";
 

@@ -1,6 +1,6 @@
 namespace SlExport
 {
-  public interface ISisulizerStatsExporer
+  public interface ISisulizerExportPlugin
   {
     string PlugInId { get; }
 

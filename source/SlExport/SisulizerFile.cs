@@ -9,9 +9,12 @@
   {
     private readonly List<SisulizerProject> projects = new List<SisulizerProject>();
 
-    public SisulizerFile(string fileName)
+    private readonly CommonExportOptions options;
+
+    public SisulizerFile(string fileName, CommonExportOptions options)
     {
       this.FileName = fileName;
+      this.options = options;
       this.ParseFile();
     }
 
@@ -40,7 +43,11 @@
               if (xr.Name == "source")
               {
                 var projectName = xr.GetAttribute("name");
-                Console.WriteLine("Encountered new project " + projectName);
+                if (this.options.Verbose)
+                {
+                  Console.WriteLine("Encountered new project " + projectName);
+                }
+
                 sisulizerProject = this.AddProject(projectName);
               }
 

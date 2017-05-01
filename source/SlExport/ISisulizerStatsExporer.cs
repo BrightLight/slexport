@@ -6,6 +6,6 @@ namespace SlExport
 
     string PlugInName { get; }
 
-    void Execute(ISisulizerFile sisulizerFile);
+    void Execute(ISisulizerFile sisulizerFile, CommonExportOptions exportOptions);
   }
 }

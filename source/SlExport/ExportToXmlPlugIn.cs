@@ -11,11 +11,12 @@
   {
     public string PlugInId => "Xml";
 
-    public string PlugInName => "Export to XML";
+    public string PlugInName => "Export to XML file";
 
-    public void Execute(ISisulizerFile sisulizerFile)
-    {      
-      File.WriteAllText(@"c:\temp\CarLoNetStats.xml", this.ToXml(sisulizerFile));
+    public void Execute(ISisulizerFile sisulizerFile, CommonExportOptions exportOptions)
+    {
+      var xmlExportOptions = exportOptions as XmlExportOptions;
+      File.WriteAllText(xmlExportOptions.OutputFilename, this.ToXml(sisulizerFile));
     }
 
     private string ToXml(ISisulizerFile sisulizerFile)

@@ -22,6 +22,12 @@ namespace SlExport
     public XmlExportOptions XmlExportOptions { get; set; }
 
     /// <summary>
+    /// Gets or sets the command line options available for target type "CSV".
+    /// </summary>
+    [VerbOption("csv", HelpText = "Export to CSV file")]
+    public CsvExportOptions CsvExportOptions { get; set; }
+
+    /// <summary>
     /// Gets or sets the command line options available for target type "Oracle".
     /// </summary>
     [VerbOption("oracle", HelpText = "Export to Oracle database using ODP.Net")]

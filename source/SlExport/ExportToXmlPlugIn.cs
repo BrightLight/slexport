@@ -50,7 +50,14 @@
       var stringBuilder = new StringBuilder();
       foreach (var projectLanguage in languages.OrderByDescending(x => x.Language.Length).ThenBy(x => x.Language))
       {
-        stringBuilder.Append(this.ToXml(projectLanguage));
+        if (projectLanguage.Language == "native")
+        {
+          stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" strings=\"{projectLanguage.NativeStringCount}\" words=\"{projectLanguage.NativeWordCount}\" />");
+        }
+        else
+        {
+          stringBuilder.Append(this.ToXml(projectLanguage));
+        }
       }
 
       return stringBuilder.ToString();
@@ -62,7 +69,7 @@
       var stringBuilder = new StringBuilder();
       foreach (var (languageStatus, stringCount, wordCount) in projectLanguage.CountByStatus.OrderBy(x => x.Item1))
       {
-        stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" status=\"{(int)languageStatus}\" statusText=\"{languageStatus}\">{stringCount}</language>");
+        stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" status=\"{(int)languageStatus}\" statusText=\"{languageStatus}\" strings=\"{stringCount}\" words=\"{wordCount}\" />");
       }
 
       return stringBuilder.ToString();

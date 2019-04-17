@@ -6,7 +6,7 @@ namespace SlExport
 
   internal class ProjectLanguage : IProjectLanguage
   {    
-    private readonly Dictionary<LangStatus, int> countByStatus = new Dictionary<LangStatus, int>();
+    private readonly Dictionary<LangStatus, int> stringCountByStatus = new Dictionary<LangStatus, int>();
 
     public ProjectLanguage(string language)
     {
@@ -19,7 +19,7 @@ namespace SlExport
 
     public IEnumerable<Tuple<LangStatus, int>> StringCountByStatus
     {
-      get { return this.countByStatus.Select(x => new Tuple<LangStatus, int>(x.Key, x.Value)); }
+      get { return this.stringCountByStatus.Select(x => new Tuple<LangStatus, int>(x.Key, x.Value)); }
     }
 
     public void IncByStatus(LangStatus status)
@@ -27,13 +27,13 @@ namespace SlExport
       this.NativeStringCount++;
 
       int count;
-      if (!this.countByStatus.TryGetValue(status, out count))
+      if (!this.stringCountByStatus.TryGetValue(status, out count))
       {
-        this.countByStatus.Add(status, 1);
+        this.stringCountByStatus.Add(status, 1);
       }
       else
       {
-        this.countByStatus[status] = count + 1;
+        this.stringCountByStatus[status] = count + 1;
       }
     }
   }

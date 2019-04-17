@@ -51,7 +51,7 @@
                 sisulizerProject = this.AddProject(projectName);
               }
 
-              if (xr.Name == "native")
+              if (xr.Name == "row")
               {
                 sisulizerProject?.IncNative();
               }

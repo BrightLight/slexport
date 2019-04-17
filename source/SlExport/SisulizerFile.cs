@@ -78,8 +78,7 @@
         return LangStatus.Completed;
       }
 
-      LangStatus status;
-      if (Enum.TryParse(statusAsString, out status))
+      if (Enum.TryParse(statusAsString, out LangStatus status))
       {
         return status;
       }

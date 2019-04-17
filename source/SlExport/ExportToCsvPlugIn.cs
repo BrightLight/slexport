@@ -14,8 +14,10 @@ namespace SlExport
 
     public void Execute(ISisulizerFile sisulizerFile, CommonExportOptions exportOptions)
     {
-      var csvExportOptions = exportOptions as CsvExportOptions;
-      File.WriteAllText(csvExportOptions.OutputFilename, this.ToCsv(sisulizerFile));
+      if (exportOptions is CsvExportOptions csvExportOptions)
+      {
+        File.WriteAllText(csvExportOptions.OutputFilename, this.ToCsv(sisulizerFile));
+      }
     }
 
     private string ToCsv(ISisulizerFile sisulizerFile)

@@ -15,8 +15,7 @@
 
     public virtual void IncLanguage(string language, LangStatus status)
     {
-      ProjectLanguage projectLanguage;
-      if (!this.languagesById.TryGetValue(language, out projectLanguage))
+        if (!this.languagesById.TryGetValue(language, out var projectLanguage))
       {
         projectLanguage = new ProjectLanguage(language);
         this.languagesById.Add(language, projectLanguage);

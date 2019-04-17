@@ -26,8 +26,7 @@ namespace SlExport
     {
       this.NativeStringCount++;
 
-      int count;
-      if (!this.stringCountByStatus.TryGetValue(status, out count))
+      if (!this.stringCountByStatus.TryGetValue(status, out var count))
       {
         this.stringCountByStatus.Add(status, 1);
       }

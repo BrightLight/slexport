@@ -1,5 +1,6 @@
 ﻿namespace SlExport
 {
+  using System;
   using System.Collections.Generic;
   using System.ComponentModel.Composition;
   using System.IO;
@@ -15,8 +16,10 @@
 
     public void Execute(ISisulizerFile sisulizerFile, CommonExportOptions exportOptions)
     {
-      var xmlExportOptions = exportOptions as XmlExportOptions;
-      File.WriteAllText(xmlExportOptions.OutputFilename, this.ToXml(sisulizerFile));
+      if (exportOptions is XmlExportOptions xmlExportOptions)
+      {
+        File.WriteAllText(xmlExportOptions.OutputFilename, this.ToXml(sisulizerFile));
+      }
     }
 
     private string ToXml(ISisulizerFile sisulizerFile)
@@ -57,9 +60,9 @@
     {
       // ToDo: NotTranslated berechnen aus "Native" - alle anderen
       var stringBuilder = new StringBuilder();
-      foreach (var statusAndCount in projectLanguage.StringCountByStatus.OrderBy(x => x.Item1))
+      foreach (var (languageStatus, stringCount) in projectLanguage.StringCountByStatus.OrderBy(x => x.Item1))
       {
-        stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" status=\"{(int)statusAndCount.Item1}\" statusText=\"{statusAndCount.Item1}\">{statusAndCount.Item2}</language>");
+        stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" status=\"{(int)languageStatus}\" statusText=\"{languageStatus}\">{stringCount}</language>");
       }
 
       return stringBuilder.ToString();

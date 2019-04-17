@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlExport", "SlExport\SlExport.csproj", "{D7AD8C7B-3ABF-498F-B48A-9FA8F1F4256F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlExport.Oracle", "SlExport.Oracle\SlExport.Oracle.csproj", "{705A0290-9289-4C1D-A54B-C8C0686C46EF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlExport.Tests", "SlExport.Tests\SlExport.Tests.csproj", "{A0BE4DDD-F91B-4DBA-9E60-A39FEA14FE74}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{705A0290-9289-4C1D-A54B-C8C0686C46EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{705A0290-9289-4C1D-A54B-C8C0686C46EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{705A0290-9289-4C1D-A54B-C8C0686C46EF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0BE4DDD-F91B-4DBA-9E60-A39FEA14FE74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0BE4DDD-F91B-4DBA-9E60-A39FEA14FE74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0BE4DDD-F91B-4DBA-9E60-A39FEA14FE74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0BE4DDD-F91B-4DBA-9E60-A39FEA14FE74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {009B3666-3714-4EF0-831C-1CA92B681E3D}
 	EndGlobalSection
 EndGlobal

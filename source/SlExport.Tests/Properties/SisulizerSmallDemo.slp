@@ -1,0 +1,40 @@
+  <source class="TNetAssemblySource" name="Magic.dll" excluded="1" original="de" date="20190213175512" netversion="net40" options="[noSetRightToLeft,noSortItems,noCompileResource,noCreateAssembly,noDeleteCompiledResource]" writemethod="nwDifferent" alparams="/keyf:&quot;magic.snk&quot;">
+    <node class="TWindowsVersionFolder" name="Versions" excluded="1" resid="16">
+      <node class="TWindowsVersionNode" name="1" excluded="1" resid="1">
+        <row id="Assembly Version" state="3" changed="20180101170000">
+          <prev>1.3.5</prev>
+          <native>1.3.6</native>
+        </row>
+        <row id="CompanyName">
+          <native>Magic Design LLC</native>
+          <lang id="en" status="2">Magic Design LLC</lang>
+          <lang id="pl" status="3">Magic Design LLC</lang>
+          <lang id="cs" status="2">Magic Design LLC</lang>
+        </row>
+        <row id="FileDescription">Magic</row>
+        <row id="FileVersion" state="3" changed="20180101170000">
+          <prev>1.3.112</prev>
+          <native>1.3.113</native>
+        </row>
+        <row id="FileVersion[1]" class="TIntegerRow">2</row>
+        <row id="FileVersion[2]" class="TIntegerRow" state="3" changed="20180102140000">
+          <prev>112</prev>
+          <native>113</native>
+        </row>
+        <row id="FileVersion[4]" class="TIntegerRow" state="3" changed="20140312191057">
+          <prev>112</prev>
+          <native>113</native>
+        </row>
+        <row id="InternalName">Magic.dll</row>
+        <row id="LegalCopyright" state="3" changed="20140212144520">
+          <prev>Copyright © Magic LLC</prev>
+          <native>Copyright © Magic Design LLC</native>
+          <lang id="en" invalidated="1" status="2">Copyright © Magic Design LLC</lang>
+          <lang id="pl" invalidated="1" status="3">Copyright © Magic Design LLC</lang>
+          <lang id="cs" invalidated="1" status="2">Copyright © Magic Design LLC</lang>
+        </row>
+        <row id="OriginalFilename">Magic.dll</row>
+        <row id="ProductVersion[1]" class="TIntegerRow">2</row>
+      </node>
+    </node>
+  </source>

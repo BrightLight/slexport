@@ -19,5 +19,23 @@ namespace SlExport
     /// </summary>
     [Option("TableName", Required = true, HelpText = "The name of the database table that stored the statistics data.")]
     public string TableName { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the product to which this statistics data belongs.
+    /// </summary>
+    [Option("Product", Required = true, HelpText = "The product to which this statistics data belongs.")]
+    public string Product { get; set; }
+
+    /// <summary>
+    /// Gets or sets the product version to which this statistics data belongs.
+    /// </summary>
+    [Option("Version", Required = true, HelpText = "The product version to which this statistics data belongs")]
+    public string Version { get; set; }
+
+    /// <summary>
+    /// Gets or sets the build number to which this statistics data belongs.
+    /// </summary>
+    [Option("Build", Required = true, HelpText = "The build number to which this statistics data belongs.")]
+    public int Build { get; set; }
   }
 }

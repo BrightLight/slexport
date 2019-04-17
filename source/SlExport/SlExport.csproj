@@ -52,6 +52,7 @@
     <Compile Include="ISisulizerFile.cs" />
     <Compile Include="ISisulizerProject.cs" />
     <Compile Include="ISisulizerStatsExporer.cs" />
+    <Compile Include="LangCount.cs" />
     <Compile Include="LangStatus.cs" />
     <Compile Include="Options.cs" />
     <Compile Include="OracleExportOptions.cs" />

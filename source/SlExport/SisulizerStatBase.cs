@@ -10,10 +10,10 @@
 
     public void IncNative(string nativeText, string translatedText)
     {
-      this.IncLanguage("native", LangStatus.Completed, nativeText, translatedText);
+      this.IncLanguage("native", LangStatus.Completed, true, nativeText, translatedText);
     }
 
-    public virtual void IncLanguage(string language, LangStatus status, string nativeText, string translatedText)
+    public virtual void IncLanguage(string language, LangStatus status, bool isValid, string nativeText, string translatedText)
     {
       if (!this.languagesById.TryGetValue(language, out var projectLanguage))
       {
@@ -21,7 +21,7 @@
         this.languagesById.Add(language, projectLanguage);
       }
 
-      projectLanguage.IncByStatus(status, nativeText, translatedText);
+      projectLanguage.IncByStatus(status, isValid, nativeText, translatedText);
     }
   }
 }

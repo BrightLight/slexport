@@ -23,15 +23,20 @@
         Assert.That(nativeStats, Is.Not.Null);
         Assert.That(nativeStats.NativeStringCount, Is.EqualTo(11));
         Assert.That(nativeStats.NativeWordCount, Is.EqualTo(17));
-        var nativeStringCountByStatus = nativeStats.CountByStatus.ToDictionary(x => x.Item1, x => (x.StringCount, x.WordCount));
+        var nativeStringCountByStatus = nativeStats.CountByStatus.ToDictionary(x => x.Item1, x => x.Item2);
         Assert.That(nativeStringCountByStatus[LangStatus.Completed].StringCount, Is.EqualTo(11));
         Assert.That(nativeStringCountByStatus[LangStatus.Completed].WordCount, Is.EqualTo(11));
+        Assert.That(nativeStringCountByStatus[LangStatus.Completed].InvalidStringCount, Is.EqualTo(0));
+        Assert.That(nativeStringCountByStatus[LangStatus.Completed].InvalidWordCount, Is.EqualTo(0));
 
         var enStats = languagesStats["en"];
         Assert.That(enStats, Is.Not.Null);
         Assert.That(enStats.NativeStringCount, Is.EqualTo(2));
         var enStringCountByStatus = enStats.CountByStatus.ToDictionary(x => x.Item1, x => x.Item2);
-        Assert.That(enStringCountByStatus[LangStatus.AutoTranslated], Is.EqualTo(2));
+        Assert.That(enStringCountByStatus[LangStatus.AutoTranslated].StringCount, Is.EqualTo(1));
+        Assert.That(enStringCountByStatus[LangStatus.AutoTranslated].WordCount, Is.EqualTo(3));
+        Assert.That(enStringCountByStatus[LangStatus.AutoTranslated].InvalidStringCount, Is.EqualTo(1));
+        Assert.That(enStringCountByStatus[LangStatus.AutoTranslated].InvalidWordCount, Is.EqualTo(5));
 
         Assert.That(sisulizerFile.Projects.Count(), Is.EqualTo(1));
         Assert.That(sisulizerFile.Projects.FirstOrDefault()?.Languages.Count(), Is.EqualTo(4)); // native, en, pl, cs

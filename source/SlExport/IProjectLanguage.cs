@@ -10,6 +10,6 @@ namespace SlExport
 
     int NativeWordCount { get; }
 
-    IEnumerable<(LangStatus, int StringCount, int WordCount)> CountByStatus { get; }
+    IEnumerable<(LangStatus, LangCount)> CountByStatus { get; }
   }
 }

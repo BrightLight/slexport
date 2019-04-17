@@ -59,6 +59,7 @@
         var mostRecentNativeText = string.Empty;
         var mostRecentLanguage = string.Empty;
         var mostRecentStatus = LangStatus.Undefined;
+        var mostRecentIsValid = false;
         var sisulizerNodeType = SisulizerNodeType.Undefined;
 
         // we are forward-only, so we need to store what we encounter and only act on it when the end-element is reached
@@ -91,6 +92,7 @@
                   sisulizerNodeType = SisulizerNodeType.Lang;
                   mostRecentLanguage = xr.GetAttribute("id");
                   mostRecentStatus = GetStatusFromInt(xr.GetAttribute("status"));
+                  mostRecentIsValid = xr.GetAttribute("invalidated") != "1";
 
                   break;
                 default:
@@ -109,7 +111,7 @@
                   break;
                 case SisulizerNodeType.Lang:
                   var translatedText = xr.Value;
-                  sisulizerProject?.IncLanguage(mostRecentLanguage, mostRecentStatus, mostRecentNativeText, translatedText);
+                  sisulizerProject?.IncLanguage(mostRecentLanguage, mostRecentStatus, mostRecentIsValid, mostRecentNativeText, translatedText);
                   break;
               }
               break;

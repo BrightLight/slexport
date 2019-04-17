@@ -10,12 +10,12 @@
       this.Name = name;
     }
 
-    public string Name { get; private set; }
+    public string Name { get; }
 
-    public override void IncLanguage(string language, LangStatus status, string nativeText, string translatedText)
+    public override void IncLanguage(string language, LangStatus status, bool isValid, string nativeText, string translatedText)
     {
-      base.IncLanguage(language, status, nativeText, translatedText);
-      this.sisulizerFile.IncLanguage(language, status, nativeText, translatedText);
+      base.IncLanguage(language, status, isValid, nativeText, translatedText);
+      this.sisulizerFile.IncLanguage(language, status, isValid, nativeText, translatedText);
     }
   }
 }

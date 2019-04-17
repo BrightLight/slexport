@@ -15,16 +15,16 @@ namespace SlExport
 
     public string Language { get; private set; }
 
-    public int NativeCount { get; private set; }
+    public int NativeStringCount { get; private set; }
 
-    public IEnumerable<Tuple<LangStatus, int>> CountByStatus
+    public IEnumerable<Tuple<LangStatus, int>> StringCountByStatus
     {
       get { return this.countByStatus.Select(x => new Tuple<LangStatus, int>(x.Key, x.Value)); }
     }
 
     public void IncByStatus(LangStatus status)
     {
-      this.NativeCount++;
+      this.NativeStringCount++;
 
       int count;
       if (!this.countByStatus.TryGetValue(status, out count))

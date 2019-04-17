@@ -23,7 +23,7 @@ namespace SlExport
       var stringBuilder = new StringBuilder();
       foreach (var project in sisulizerFile.Projects)
       {
-        var count = project.Languages.Any() ? project.Languages.Max(x => x.NativeCount) : 0;
+        var count = project.Languages.Any() ? project.Languages.Max(x => x.NativeStringCount) : 0;
         stringBuilder.AppendLine($"{project.Name};{count}");
       }
 

@@ -7,8 +7,8 @@ namespace SlExport
   {
     string Language { get; }
 
-    int NativeCount { get; }
+    int NativeStringCount { get; }
 
-    IEnumerable<Tuple<LangStatus, int>> CountByStatus { get; }
+    IEnumerable<Tuple<LangStatus, int>> StringCountByStatus { get; }
   }
 }

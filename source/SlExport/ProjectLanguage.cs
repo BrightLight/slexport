@@ -27,7 +27,7 @@ namespace SlExport
     public void IncByStatus(LangStatus status, string nativeText, string translatedText)
     {
       this.NativeStringCount++;
-      this.NativeWordCount = DetermineWordCount(nativeText);
+      this.NativeWordCount += DetermineWordCount(nativeText);
 
       if (!this.countByStatus.TryGetValue(status, out var count))
       {

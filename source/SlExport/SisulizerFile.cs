@@ -4,12 +4,21 @@
   using System.Collections.Generic;
   using System.IO;
   using System.Xml;
+  using System.Xml.Linq;
 
   public class SisulizerFile : SisulizerStatBase, ISisulizerFile
   {
     private readonly List<SisulizerProject> projects = new List<SisulizerProject>();
 
     private readonly CommonExportOptions options;
+
+    private enum SisulizerNodeType
+    {
+      Undefined,
+      Row,
+      Native,
+      Lang,
+    }
 
     public SisulizerFile(string fileName, CommonExportOptions options)
     {
@@ -49,8 +58,9 @@
       {
         SisulizerProject sisulizerProject = null;
         var mostRecentNativeText = string.Empty;
-        var mostRecentTranslatedText = string.Empty;
         var mostRecentLanguage = string.Empty;
+        var mostRecentStatus = LangStatus.Undefined;
+        var sisulizerNodeType = SisulizerNodeType.Undefined;
 
         // we are forward-only, so we need to store what we encounter and only act on it when the end-element is reached
         while (xr.Read())
@@ -58,39 +68,55 @@
           switch (xr.NodeType)
           {
             case XmlNodeType.Element:
-              if (xr.Name == "source")
+              switch (xr.Name)
               {
-                var projectName = xr.GetAttribute("name");
-                if (this.options.Verbose)
-                {
-                  Console.WriteLine("Encountered new project " + projectName);
-                }
+                case "source":
+                  var projectName = xr.GetAttribute("name");
+                  if (this.options.Verbose)
+                  {
+                    Console.WriteLine("Encountered new project " + projectName);
+                  }
 
-                sisulizerProject = this.AddProject(projectName);
-              }
+                  sisulizerProject = this.AddProject(projectName);
+                  break;
 
-              if (xr.Name == "row")
-              {
-                mostRecentNativeText = xr.Value;
-                sisulizerProject?.IncNative(mostRecentNativeText, string.Empty);
-              }
+                case "row":
+                  sisulizerNodeType = SisulizerNodeType.Row;
+                  break;
 
-              if (xr.Name == "native")
-              {
-                mostRecentNativeText = xr.Value;
-              }
+                case "native":
+                  sisulizerNodeType = SisulizerNodeType.Native;
+                  break;
 
-              if (xr.Name == "lang")
-              {
-                var language = xr.GetAttribute("id");
-                var status = GetStatusFromInt(xr.GetAttribute("status"));
-                var translatedText = xr.Value;
-                sisulizerProject?.IncLanguage(language, status, mostRecentNativeText, translatedText);
+                case "lang":
+                  sisulizerNodeType = SisulizerNodeType.Lang;
+                  mostRecentLanguage = xr.GetAttribute("id");
+                  mostRecentStatus = GetStatusFromInt(xr.GetAttribute("status"));
+
+                  break;
+                default:
+                  sisulizerNodeType = SisulizerNodeType.Undefined;
+                  break;
               }
 
               break;
+            case XmlNodeType.Text:
+              switch (sisulizerNodeType)
+              {
+                case SisulizerNodeType.Row:
+                case SisulizerNodeType.Native:
+                  mostRecentNativeText = xr.Value;
+                  sisulizerProject?.IncNative(mostRecentNativeText, string.Empty);
+                  break;
+                case SisulizerNodeType.Lang:
+                  var translatedText = xr.Value;
+                  sisulizerProject?.IncLanguage(mostRecentLanguage, mostRecentStatus, mostRecentNativeText, translatedText);
+                  break;
+              }
+              break;
             case XmlNodeType.EndElement:
             {
+              sisulizerNodeType = SisulizerNodeType.Undefined;
               break;
             }
           }

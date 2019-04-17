@@ -5,35 +5,43 @@ namespace SlExport
   using System.Linq;
 
   internal class ProjectLanguage : IProjectLanguage
-  {    
-    private readonly Dictionary<LangStatus, int> stringCountByStatus = new Dictionary<LangStatus, int>();
+  {
+    private readonly Dictionary<LangStatus, (int StringCount, int WordCount)> countByStatus = new Dictionary<LangStatus, (int, int)>();
 
     public ProjectLanguage(string language)
     {
       this.Language = language;
     }
 
-    public string Language { get; private set; }
+    public string Language { get; }
 
     public int NativeStringCount { get; private set; }
 
-    public IEnumerable<Tuple<LangStatus, int>> StringCountByStatus
+    public int NativeWordCount { get; private set; }
+
+    public IEnumerable<(LangStatus, int StringCount, int WordCount)> CountByStatus
     {
-      get { return this.stringCountByStatus.Select(x => new Tuple<LangStatus, int>(x.Key, x.Value)); }
+      get { return this.countByStatus.Select(x => (x.Key, x.Value.StringCount, x.Value.WordCount)); }
     }
 
-    public void IncByStatus(LangStatus status)
+    public void IncByStatus(LangStatus status, string nativeText, string translatedText)
     {
       this.NativeStringCount++;
+      this.NativeWordCount = DetermineWordCount(nativeText);
 
-      if (!this.stringCountByStatus.TryGetValue(status, out var count))
+      if (!this.countByStatus.TryGetValue(status, out var count))
       {
-        this.stringCountByStatus.Add(status, 1);
+        this.countByStatus.Add(status, (1, DetermineWordCount(translatedText)));
       }
       else
       {
-        this.stringCountByStatus[status] = count + 1;
+        this.countByStatus[status] = (count.StringCount + 1, count.WordCount + DetermineWordCount(translatedText));
       }
+    }
+
+    private static int DetermineWordCount(string text)
+    {
+      return text.Split(' ').Length;
     }
   }
 }

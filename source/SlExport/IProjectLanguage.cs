@@ -1,6 +1,5 @@
 namespace SlExport
 {
-  using System;
   using System.Collections.Generic;
 
   public interface IProjectLanguage
@@ -9,6 +8,6 @@ namespace SlExport
 
     int NativeStringCount { get; }
 
-    IEnumerable<Tuple<LangStatus, int>> StringCountByStatus { get; }
+    IEnumerable<(LangStatus, int StringCount, int WordCount)> CountByStatus { get; }
   }
 }

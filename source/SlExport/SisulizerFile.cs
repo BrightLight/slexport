@@ -5,7 +5,7 @@
   using System.IO;
   using System.Xml;
 
-  internal class SisulizerFile : SisulizerStatBase, ISisulizerFile
+  public class SisulizerFile : SisulizerStatBase, ISisulizerFile
   {
     private readonly List<SisulizerProject> projects = new List<SisulizerProject>();
 
@@ -18,7 +18,13 @@
       this.ParseFile();
     }
 
-    public string FileName { get; private set; }
+    public SisulizerFile(Stream fileStream, CommonExportOptions options)
+    {
+      this.options = options;
+      this.ParseStream(fileStream);
+    }
+
+    public string FileName { get; }
 
     public IEnumerable<ISisulizerProject> Projects => this.projects;
 
@@ -31,10 +37,22 @@
 
     private void ParseFile()
     {
-      SisulizerProject sisulizerProject = null;
       using (var fileStream = new FileStream(this.FileName, FileMode.Open))
+      {
+        this.ParseStream(fileStream);
+      }
+    }
+
+    private void ParseStream(Stream fileStream)
+    {
       using (var xr = XmlReader.Create(fileStream))
       {
+        SisulizerProject sisulizerProject = null;
+        var mostRecentNativeText = string.Empty;
+        var mostRecentTranslatedText = string.Empty;
+        var mostRecentLanguage = string.Empty;
+
+        // we are forward-only, so we need to store what we encounter and only act on it when the end-element is reached
         while (xr.Read())
         {
           switch (xr.NodeType)
@@ -53,19 +71,28 @@
 
               if (xr.Name == "row")
               {
-                sisulizerProject?.IncNative();
+                mostRecentNativeText = xr.Value;
+                sisulizerProject?.IncNative(mostRecentNativeText, string.Empty);
+              }
+
+              if (xr.Name == "native")
+              {
+                mostRecentNativeText = xr.Value;
               }
 
               if (xr.Name == "lang")
               {
                 var language = xr.GetAttribute("id");
                 var status = GetStatusFromInt(xr.GetAttribute("status"));
-                sisulizerProject?.IncLanguage(language, status);
+                var translatedText = xr.Value;
+                sisulizerProject?.IncLanguage(language, status, mostRecentNativeText, translatedText);
               }
 
               break;
             case XmlNodeType.EndElement:
+            {
               break;
+            }
           }
         }
       }

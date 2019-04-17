@@ -2,26 +2,26 @@
 {
   using System.Collections.Generic;
 
-  internal class SisulizerStatBase
+  public class SisulizerStatBase
   {
     private readonly Dictionary<string, ProjectLanguage> languagesById = new Dictionary<string, ProjectLanguage>();
 
     public IEnumerable<IProjectLanguage> Languages => this.languagesById.Values;
 
-    public void IncNative()
+    public void IncNative(string nativeText, string translatedText)
     {
-      this.IncLanguage("native", LangStatus.Completed);
+      this.IncLanguage("native", LangStatus.Completed, nativeText, translatedText);
     }
 
-    public virtual void IncLanguage(string language, LangStatus status)
+    public virtual void IncLanguage(string language, LangStatus status, string nativeText, string translatedText)
     {
-        if (!this.languagesById.TryGetValue(language, out var projectLanguage))
+      if (!this.languagesById.TryGetValue(language, out var projectLanguage))
       {
         projectLanguage = new ProjectLanguage(language);
         this.languagesById.Add(language, projectLanguage);
       }
 
-      projectLanguage.IncByStatus(status);
+      projectLanguage.IncByStatus(status, nativeText, translatedText);
     }
   }
 }

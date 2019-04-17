@@ -60,7 +60,7 @@
     {
       // ToDo: NotTranslated berechnen aus "Native" - alle anderen
       var stringBuilder = new StringBuilder();
-      foreach (var (languageStatus, stringCount) in projectLanguage.StringCountByStatus.OrderBy(x => x.Item1))
+      foreach (var (languageStatus, stringCount, wordCount) in projectLanguage.CountByStatus.OrderBy(x => x.Item1))
       {
         stringBuilder.AppendLine($"<language id=\"{projectLanguage.Language}\" status=\"{(int)languageStatus}\" statusText=\"{languageStatus}\">{stringCount}</language>");
       }

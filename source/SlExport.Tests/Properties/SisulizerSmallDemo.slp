@@ -1,6 +1,6 @@
   <source class="TNetAssemblySource" name="Magic.dll" excluded="1" original="de" date="20190213175512" netversion="net40" options="[noSetRightToLeft,noSortItems,noCompileResource,noCreateAssembly,noDeleteCompiledResource]" writemethod="nwDifferent" alparams="/keyf:&quot;magic.snk&quot;">
-    <node class="TWindowsVersionFolder" name="Versions" excluded="1" resid="16">
-      <node class="TWindowsVersionNode" name="1" excluded="1" resid="1">
+    <node class="TWindowsVersionFolder" name="Versions" resid="16">
+      <node class="TWindowsVersionNode" name="1" resid="1">
         <row id="Assembly Version" state="3" changed="20180101170000">
           <prev>1.3.5</prev>
           <native>1.3.6</native>

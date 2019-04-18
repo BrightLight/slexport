@@ -25,7 +25,7 @@
         Assert.That(nativeStats.NativeWordCount, Is.EqualTo(17));
         var nativeStringCountByStatus = nativeStats.CountByStatus.ToDictionary(x => x.Item1, x => x.Item2);
         Assert.That(nativeStringCountByStatus[LangStatus.Completed].StringCount, Is.EqualTo(11));
-        Assert.That(nativeStringCountByStatus[LangStatus.Completed].WordCount, Is.EqualTo(11));
+        Assert.That(nativeStringCountByStatus[LangStatus.Completed].WordCount, Is.EqualTo(17));
         Assert.That(nativeStringCountByStatus[LangStatus.Completed].InvalidStringCount, Is.EqualTo(0));
         Assert.That(nativeStringCountByStatus[LangStatus.Completed].InvalidWordCount, Is.EqualTo(0));
 

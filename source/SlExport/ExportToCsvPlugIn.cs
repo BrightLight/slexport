@@ -1,5 +1,6 @@
 namespace SlExport
 {
+  using System.Collections.Generic;
   using System.ComponentModel.Composition;
   using System.IO;
   using System.Linq;
@@ -23,13 +24,31 @@ namespace SlExport
     private string ToCsv(ISisulizerFile sisulizerFile)
     {
       var stringBuilder = new StringBuilder();
+      
+      // header
+      stringBuilder.AppendLine($"Project;Language;Status;StringCount;InvalidStringCount;WordCount;InvalidWordCount");
+
+      // totals over all projects in Sisulizer file
+      this.ToCsv(stringBuilder, "total", sisulizerFile.Languages);
+
+      // stats for each project individually
       foreach (var project in sisulizerFile.Projects)
       {
-        var count = project.Languages.Any() ? project.Languages.Max(x => x.NativeStringCount) : 0;
-        stringBuilder.AppendLine($"{project.Name};{count}");
+        this.ToCsv(stringBuilder, project.Name, project.Languages);
       }
 
       return stringBuilder.ToString();
+    }
+
+    private void ToCsv(StringBuilder stringBuilder, string projectname, IEnumerable<IProjectLanguage> projectLanguages)
+    {
+      foreach (var language in projectLanguages)
+      {
+        foreach (var (langStatus, langCount) in language.CountByStatus)
+        {
+          stringBuilder.AppendLine($"{projectname};{language.Language};{langStatus};{langCount.StringCount};{langCount.InvalidStringCount};{langCount.WordCount};{langCount.InvalidWordCount}");
+        }
+      }
     }
   }
 }

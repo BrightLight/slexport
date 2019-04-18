@@ -76,6 +76,10 @@
       using (var fileStream = new FileStream(this.FileName, FileMode.Open))
       {
         this.ParseStream(fileStream);
+
+        var totalNativeStringCount = this.Languages.FirstOrDefault(x => x.Language == "native")?.NativeStringCount ?? 0;
+        var totalNativeWordCount = this.Languages.FirstOrDefault(x => x.Language == "native")?.NativeWordCount ?? 0;
+        this.CalculateNotTranslated(totalNativeStringCount, totalNativeWordCount);
       }
     }
 
@@ -176,6 +180,15 @@
       ////}
 
       ////File.WriteAllText("rowids.txt", sb.ToString());
+    }
+
+    public override void CalculateNotTranslated(int totalNativeStringCount, int totalNativeWordCount)
+    {
+      base.CalculateNotTranslated(totalNativeStringCount, totalNativeWordCount);
+      foreach (var sisulizerProject in this.projects)
+      {
+        sisulizerProject.CalculateNotTranslated(totalNativeStringCount, totalNativeWordCount);
+      }
     }
 
     private static bool SkipRow(string rowId)

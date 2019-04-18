@@ -23,5 +23,13 @@
 
       projectLanguage.IncByStatus(status, isValid, nativeText, translatedText);
     }
+
+    public virtual void CalculateNotTranslated(int totalNativeStringCount, int totalNativeWordCount)
+    {
+      foreach (var langugae in this.languagesById.Values)
+      {
+        langugae.CalculateNotTranslated(totalNativeStringCount, totalNativeWordCount);
+      }
+    }
   }
 }

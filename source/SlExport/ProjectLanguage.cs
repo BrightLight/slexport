@@ -34,7 +34,15 @@ namespace SlExport
         this.countByStatus.Add(status, langCount);
       }
 
-      langCount.Increment(isValid, 1, DetermineWordCount(translatedText));
+      langCount.Increment(isValid, 1, DetermineWordCount(nativeText));
+    }
+
+    public void CalculateNotTranslated(int totalNativeStringCount, int totalNativeWordCount)
+    {
+      this.countByStatus.Add(LangStatus.NotTranslated, new LangCount {
+                                                             StringCount = totalNativeStringCount - this.NativeStringCount,
+                                                             WordCount = totalNativeWordCount - this.NativeWordCount,
+                                                           });
     }
 
     private static int DetermineWordCount(string text)

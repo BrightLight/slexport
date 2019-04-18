@@ -3,6 +3,8 @@
   using System;
   using System.Collections.Generic;
   using System.IO;
+  using System.Linq;
+  using System.Text;
   using System.Xml;
 
   public class SisulizerFile : SisulizerStatBase, ISisulizerFile
@@ -10,6 +12,32 @@
     private readonly List<SisulizerProject> projects = new List<SisulizerProject>();
 
     private readonly CommonExportOptions options;
+
+    private static readonly List<string> excludedRowIds = new List<string>
+    {
+      "Size.Height",
+      "Size.Width",
+      "BackColor",
+      "ForeColor",
+      "Location.X",
+      "Location.Y",
+      "ClientSize.Height",
+      "ClientSize.Width",
+      "RightToLeft",
+      "Font",
+      "FontCategory",
+      "FontFamily",
+      "FontSize",
+      "FontStyle",
+      "ImeMode",
+      "Height",
+      "Width",
+      "helpProvider.TrayLocation",
+      "Size",
+      "ZOrder",
+    };
+
+    ////private static readonly HashSet<string> foo = new HashSet<string>();
 
     private enum SisulizerNodeType
     {
@@ -80,8 +108,25 @@
                   sisulizerProject = this.AddProject(projectName);
                   break;
 
+                case "node":
+                  if (xr.GetAttribute("excluded") == "1")
+                  {
+                    xr.ReadInnerXml(); // we don't need the inner xml, we just want to skip over it and move the reader forward
+                  }
+
+                  break;
+
                 case "row":
-                  sisulizerNodeType = SisulizerNodeType.Row;
+                  if (SkipRow(xr.GetAttribute("id")) || xr.GetAttribute("hidden") == "1")
+                  {
+                    xr.ReadInnerXml(); // we don't need the inner xml, we just want to skip over it and move the reader forward
+                  }
+                  else
+                  {
+                    ////foo.Add(xr.GetAttribute("id"));
+                    sisulizerNodeType = SisulizerNodeType.Row;
+                  }
+
                   break;
 
                 case "native":
@@ -123,6 +168,19 @@
           }
         }
       }
+
+      ////var sb = new StringBuilder();
+      ////foreach (var text in foo.OrderBy(x => x))
+      ////{
+      ////  sb.AppendLine(text);
+      ////}
+
+      ////File.WriteAllText("rowids.txt", sb.ToString());
+    }
+
+    private static bool SkipRow(string rowId)
+    {
+      return excludedRowIds.Contains(rowId);
     }
 
     private static LangStatus GetStatusFromInt(string statusAsString)
